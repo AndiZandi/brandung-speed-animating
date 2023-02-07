@@ -1,118 +1,114 @@
 import { useState } from 'react';
 import { motion, Variants } from 'framer-motion';
 
-const itemVariants = {
-  open: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', stiffness: 300, damping: 24 },
+const icon = {
+  hidden: {
+    pathLength: 0,
+    fill: 'rgba(255, 255, 255, 0)',
   },
-  closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+  visible: {
+    pathLength: 1,
+    fill: 'rgba(204, 0, 0, 0.96)',
+  },
 };
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const whiteDiv = (children) => {
+    return (
+      <motion.div
+        style={{ borderRadius: '300px' }}
+        animate={{ backgroundColor: ['rgb(0, 0, 0)', 'rgb(255, 255, 255)'] }}
+        whileHover={{ rotate: 3000, scale: 10 }}
+        transition={{ duration: 70 }}
+      >
+        {children}
+      </motion.div>
+    );
+  };
+
+  const blackDiv = (children) => {
+    return (
+      <motion.div
+        style={{ borderRadius: '300px' }}
+        animate={{ backgroundColor: ['rgb(255, 255, 255)', 'rgb(0, 0, 0)'] }}
+        backgroundColor="black"
+        whileHover={{ rotate: -30000, scale: 10 }}
+        transition={{ duration: 70 }}
+      >
+        {children}
+      </motion.div>
+    );
+  };
+
+  const array = [20];
+
+  const bird = () => {
+    return (
+      <motion.div
+        whileHover={{ rotate: 10 }}
+        whileTap={{
+          rotate: -20,
+          borderRadius: '100%',
+        }}
+      >
+        <motion.svg
+          version="1.0"
+          xmlns="http://www.w3.org/2000/svg"
+          width="200"
+          height="100"
+          viewBox="0 0 1280.000000 640.000000"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <g
+            transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)"
+            fill="#000000"
+            stroke="#000000"
+          >
+            <motion.path
+              d="M10025 5179 c-1261 -12 -2286 -39 -2365 -60 -80 -22 -221 -123 -685
+-494 -344 -275 -636 -496 -723 -549 -115 -70 -165 -84 -278 -78 -296 14 -612
+-94 -962 -329 l-102 -69 -148 10 c-331 22 -782 10 -1102 -31 -625 -79 -1199
+-304 -1705 -667 -167 -120 -652 -523 -1375 -1142 -228 -195 -444 -379 -480
+-408 -106 -86 -121 -121 -65 -142 22 -8 38 -3 108 36 118 67 240 154 427 304
+90 73 169 134 175 137 7 2 15 -2 18 -10 3 -8 19 -19 36 -25 28 -10 40 -6 119
+33 48 24 193 116 322 204 1012 691 1310 876 1825 1133 440 221 705 320 1020
+383 44 9 91 24 105 33 56 38 668 8 742 -36 15 -9 31 -27 37 -41 5 -14 19 -55
+31 -91 49 -142 132 -276 252 -405 66 -71 76 -87 87 -140 17 -80 58 -154 88
+-161 28 -7 56 14 73 56 l12 29 49 -30 c56 -35 89 -73 89 -102 0 -12 -23 -62
+-52 -111 -52 -92 -74 -175 -49 -190 16 -10 121 19 212 58 96 42 206 108 308
+185 42 31 98 69 124 84 l48 26 47 -31 c74 -50 188 -145 221 -185 16 -20 33
+-53 36 -74 4 -24 16 -46 32 -58 54 -43 187 -36 227 12 10 12 23 21 28 19 26
+-7 78 29 99 69 20 41 21 44 5 73 -10 17 -58 65 -107 106 -80 66 -109 101 -109
+130 0 4 21 11 47 15 81 12 167 43 218 80 219 155 552 637 706 1023 107 265
+143 542 71 542 -9 0 -51 -28 -92 -61 -284 -233 -517 -385 -810 -528 -173 -85
+-176 -86 -251 -86 -62 0 -81 4 -98 19 -23 21 -26 50 -8 83 7 12 129 108 272
+214 855 632 1226 857 1642 995 56 19 114 34 130 34 15 0 44 5 63 10 37 11 134
+8 980 -30 245 -11 594 -27 775 -35 1242 -56 1989 -54 2183 7 45 14 92 55 92
+82 0 18 10 25 54 39 69 22 108 52 104 81 -5 38 -109 45 -798 55 -706 11 -906
+11 -1975 0z m-3504 -2529 l46 0 26 -68 c15 -37 27 -70 27 -73 0 -9 -81 11
+-120 29 -33 16 -100 92 -100 114 0 7 14 8 38 4 20 -3 58 -6 83 -6z"
+              variants={icon}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                default: { duration: 2 },
+                fill: { duration: 1, ease: [1, 0, 0.8, 1] },
+              }}
+            />
+          </g>
+        </motion.svg>
+      </motion.div>
+    );
+  };
   return (
     <main className="main">
-      <motion.div
-        className="box"
-        drag
-        animate={{
-          scale: [1, 2, 2, 1, 1],
-          rotate: [0, 0, 180, 180, 0],
-          borderRadius: ['0%', '0%', '50%', '50%', '0%'],
-        }}
-        transition={{
-          duration: 2,
-          ease: 'easeInOut',
-          times: [0, 0.2, 0.5, 0.8, 1],
-          repeat: Infinity,
-          repeatDelay: 1,
-        }}
-      />
-
-      <motion.div
-        style={{ marginTop: '80vh' }}
-        initial={{ x: -300, filter: 'blur(5px)' }}
-        whileInView={{
-          x: 0,
-          filter: 'blur(0px)',
-          transition: {
-            type: 'spring',
-            bounce: 0.4,
-            duration: 1.8,
-          },
-        }}
-        viewport={{ once: false, amount: 'all' }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="260"
-          height="72"
-          fill="none"
-        >
-          <path
-            fill="#004F9F"
-            d="M6.565 28.108c0-2.38 1.805-4.053 5.362-4.053 1.936 0 4.263.444 6.068.994V19.32c-1.883-.34-3.976-.601-5.78-.601C4.525 18.72 0 22.826 0 28.736c0 10.958 13.444 8.055 13.444 14.41 0 3.06-2.432 4.393-5.545 4.393-2.328 0-5.257-.575-7.062-1.229v6.015c1.988.55 4.263.785 6.539.785 7.873 0 12.685-4.603 12.685-10.853 0-10.409-13.496-8.186-13.496-14.175M23.33 37c0 8.29 3.61 16.057 14.83 16.057 2.983 0 5.65-.497 8.005-1.386v-6.015c-1.674.785-4.735 1.569-6.67 1.569-6.46 0-9.364-4.053-9.364-11.298 0-6.46 2.956-11.166 8.92-11.166 2.196 0 5.021.575 7.114 1.229v-6.068c-2.093-.601-4.5-.889-6.775-.889-10.724 0-16.06 7.401-16.06 17.967ZM71.484 32.606H57.883V19.27H51.71v33.317h6.173V38.124h13.6v14.462h6.173V19.27h-6.172v13.337ZM102.793 40.06c0 5.674-1.988 7.74-6.749 7.74-5.31 0-6.643-2.955-6.643-7.165V19.269h-6.173v21.784c0 6.381 2.276 12.108 12.398 12.108 8.448 0 13.287-4.34 13.287-13.494V19.27h-6.12v20.79ZM133.368 32.606h-13.575V19.27h-6.172v33.317h6.172V38.124h13.575v14.462h6.173V19.27h-6.173v13.337ZM154.293 19.06c-3.139 0-5.99.052-8.605.209v33.344h6.172V40.87c.759.105 1.517.105 2.093.105 7.794 0 12.528-5.074 12.528-11.56 0-6.485-4.315-10.33-12.214-10.33m-.628 16.555c-.576 0-1.177-.052-1.805-.157v-11.14c.706-.053 1.413-.053 2.197-.053 4.185 0 6.042 2.118 6.042 5.492 0 3.609-2.615 5.78-6.408 5.832M176.133 19.269l-11.221 33.343h6.225l2.223-6.825h12.111l2.223 6.825h6.826L183.117 19.27h-6.984Zm-1.177 21.444 2.903-8.5c.628-1.934 1.151-3.844 1.517-5.57h.053c.392 1.883.863 3.505 1.464 5.335l2.982 8.735h-8.919ZM211.077 37.732c4.839-.785 8.161-4.341 8.161-9.284 0-6.826-4.551-9.388-11.64-9.388-3.714 0-6.695.052-9.206.209v33.344h6.172V38.83h.236l8.919 13.782h7.637l-7.689-11.22c-.811-1.124-1.701-2.432-2.616-3.66m-6.513-3.662v-9.624c.628-.105 1.517-.157 2.433-.157 3.897 0 5.806 1.57 5.806 4.786 0 3.216-2.275 5.073-5.989 5.073-.942 0-1.805-.052-2.224-.104M237.599 35.352l11.718-16.083h-7.48l-10.41 15.115V19.27h-6.173v33.317h6.173V36.607l10.305 15.98h8.108l-12.241-17.235Z"
-          />
-        </svg>
-      </motion.div>
-
-      <div className="variants">
-        <motion.nav
-          initial={false}
-          animate={isOpen ? 'open' : 'closed'}
-          className="menu"
-        >
-          <motion.button
-            whileTap={{ scale: 0.97 }}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            Menu
-            <motion.div
-              variants={{
-                open: { rotate: 180 },
-                closed: { rotate: 0 },
-              }}
-              transition={{ duration: 0.2 }}
-              style={{ originY: 0.55 }}
-            >
-              <svg width="15" height="15" viewBox="0 0 20 20">
-                <path d="M0 7 L 20 7 L 10 16" />
-              </svg>
-            </motion.div>
-          </motion.button>
-          <motion.ul
-            variants={{
-              open: {
-                clipPath: 'inset(0% 0% 0% 0% round 10px)',
-                transition: {
-                  type: 'spring',
-                  bounce: 0,
-                  duration: 0.7,
-                  delayChildren: 0.3,
-                  staggerChildren: 0.05,
-                },
-              },
-              closed: {
-                clipPath: 'inset(10% 50% 90% 50% round 10px)',
-                transition: {
-                  type: 'spring',
-                  bounce: 0,
-                  duration: 0.3,
-                },
-              },
-            }}
-            style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
-          >
-            <motion.li variants={itemVariants}>Item 1 </motion.li>
-            <motion.li variants={itemVariants}>Item 2 </motion.li>
-            <motion.li variants={itemVariants}>Item 3 </motion.li>
-            <motion.li variants={itemVariants}>Item 4 </motion.li>
-            <motion.li variants={itemVariants}>Item 5 </motion.li>
-          </motion.ul>
-        </motion.nav>
-      </div>
+      {whiteDiv(
+        blackDiv(
+          whiteDiv(blackDiv(whiteDiv(blackDiv(whiteDiv(blackDiv(bird()))))))
+        )
+      )}
     </main>
   );
 }
